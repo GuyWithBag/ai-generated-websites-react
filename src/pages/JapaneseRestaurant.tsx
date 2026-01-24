@@ -48,7 +48,7 @@ const JapaneseRestaurant = () => {
   const menuItems = [
     {
       id: 1,
-      name: "Tonkotsu Ramen",
+      name: "Shrimp Ramen",
       price: "16.00",
       category: "Ramen",
       desc: "Rich pork broth, chashu, soft egg, menma, scallions.",
