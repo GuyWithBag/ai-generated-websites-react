@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import JapaneseRestaurant from "./pages/JapaneseRestaurant";
 import VintageMillenary from "./pages/VintageMillenary";
+import ShoeStore from "./pages/ShoeStore";
+import FidgetStore from "./pages/FidgetStore";
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/jp-res" element={<JapaneseRestaurant />} />
         <Route path="/vin-hats" element={<VintageMillenary />} />
+        <Route path="/shoe-store" element={<ShoeStore />} />
+        <Route path="/fid-store" element={<FidgetStore />} />
       </Routes>
     </BrowserRouter>
   );
