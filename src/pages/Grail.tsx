@@ -11,11 +11,12 @@ const THEME = {
 };
 
 // --- Tailwind v4 Config Injection ---
-// Adds custom animations for the pulsing dot and the success state
+// Added 'glitch' animation keyframes and utility class
 const tailwindConfig = `
 @theme {
   --animate-pulse-fast: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   --animate-pop-in: pop-in 0.3s ease-out forwards;
+  --animate-glitch: glitch 0.2s infinite;
 }
 @keyframes pulse {
   0%, 100% { opacity: 1; }
@@ -25,12 +26,32 @@ const tailwindConfig = `
   0% { transform: scale(0.8); opacity: 0; }
   100% { transform: scale(1); opacity: 1; }
 }
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-2px, 2px); }
+  40% { transform: translate(-2px, -2px); }
+  60% { transform: translate(2px, 2px); }
+  80% { transform: translate(2px, -2px); }
+  100% { transform: translate(0); }
+}
 `;
 
 // =========================================
-// Main Grail Component
+// Main Grail Component (Parent)
 // =========================================
 const Grail: React.FC = () => {
+  // 1. State to track loading status
+  const [isLoading, setIsLoading] = useState(true);
+
+  // 2. Effect to simulate data loading (e.g., fetching drop times)
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2500); // Wait 2.5 seconds before showing the app
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="flex items-center justify-center min-h-screen bg-[#121212] font-sans p-4 sm:p-8 select-none overflow-hidden">
       <style>{tailwindConfig}</style>
@@ -48,8 +69,8 @@ const Grail: React.FC = () => {
           </div>
         </div>
 
-        {/* Main Content */}
-        <HomeScreen />
+        {/* 3. Conditional Rendering based on loading state */}
+        {isLoading ? <LoadingScreen /> : <HomeScreen />}
 
         {/* Home Indicator */}
         <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-1 bg-white/20 rounded-full z-50 pointer-events-none"></div>
@@ -59,7 +80,59 @@ const Grail: React.FC = () => {
 };
 
 // =========================================
-// Home Screen Component
+// New Loading Screen Component
+// =========================================
+const LoadingScreen: React.FC = () => {
+  return (
+    <div
+      className={`w-full h-full flex flex-col items-center justify-center relative overflow-hidden ${THEME.bg}`}
+    >
+      {/* subtle background texture/noise effect */}
+      <div
+        className="absolute inset-0 opacity-10 pointer-events-none"
+        style={{
+          backgroundImage:
+            "linear-gradient(#111 1px, transparent 1px), linear-gradient(90deg, #111 1px, transparent 1px)",
+          backgroundSize: "20px 20px",
+        }}
+      ></div>
+
+      <div className="relative z-10 flex flex-col items-center">
+        {/* Base Text */}
+        <h1 className="text-6xl font-black italic tracking-tighter text-[#222] relative">
+          GRAIL
+          {/* Glitch Layer on top */}
+          <span
+            className={`absolute inset-0 ${THEME.accentText} opacity-70 animate-glitch mix-blend-overlay`}
+            style={{ transform: "translate(3px, -3px)" }}
+          >
+            GRAIL
+          </span>
+        </h1>
+
+        {/* Pulsing loader dots underneath */}
+        <div className="mt-6 flex gap-2">
+          <div
+            className={`w-3 h-3 ${THEME.accent} rounded-full animate-pulse-fast`}
+          ></div>
+          <div
+            className={`w-3 h-3 ${THEME.accent} rounded-full animate-pulse-fast delay-150`}
+          ></div>
+          <div
+            className={`w-3 h-3 ${THEME.accent} rounded-full animate-pulse-fast delay-300`}
+          ></div>
+        </div>
+
+        <p className="text-[#555] text-xs uppercase tracking-[0.2em] mt-4 font-bold animate-pulse">
+          Initializing Drop...
+        </p>
+      </div>
+    </div>
+  );
+};
+
+// =========================================
+// Home Screen Component (Unchanged)
 // =========================================
 const HomeScreen: React.FC = () => {
   // Simple countdown timer logic
@@ -83,7 +156,7 @@ const HomeScreen: React.FC = () => {
   const selectedSize = "3.5";
 
   return (
-    <div className="flex flex-col h-full relative">
+    <div className="flex flex-col h-full relative animate-pop-in">
       {/* Header */}
       <header className="flex justify-between items-center px-6 pt-14 pb-4 z-20">
         <Menu className="text-white w-6 h-6 opacity-80" />
@@ -181,7 +254,7 @@ const HomeScreen: React.FC = () => {
 };
 
 // =========================================
-// Custom Interactive Slider Component
+// Custom Interactive Slider Component (Unchanged)
 // =========================================
 const SliderToCop: React.FC = () => {
   const [dragWidth, setDragWidth] = useState(0);
