@@ -5,6 +5,7 @@ import JapaneseRestaurant from "./pages/JapaneseRestaurant";
 import VintageMillenary from "./pages/VintageMillenary";
 import ShoeStore from "./pages/ShoeStore";
 import FidgetStore from "./pages/FidgetStore";
+import CanvasAndRain from "./pages/CanvasAndRain";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/vin-hats" element={<VintageMillenary />} />
         <Route path="/shoe-store" element={<ShoeStore />} />
         <Route path="/fid-store" element={<FidgetStore />} />
+        <Route path="/can-rain" element={<CanvasAndRain />} />
       </Routes>
     </BrowserRouter>
   );
