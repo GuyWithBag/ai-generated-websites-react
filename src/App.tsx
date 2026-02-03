@@ -9,6 +9,7 @@ import CanvasAndRain from "./pages/CanvasAndRain";
 import Aureus from "./pages/Aureus";
 import TimerApp from "./pages/TimerApp";
 import Onyx from "./pages/Onyx";
+import Grail from "./pages/Grail";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/aureus" element={<Aureus />} />
         <Route path="/timer" element={<TimerApp />} />
         <Route path="/onyx" element={<Onyx />} />
+        <Route path="/grail" element={<Grail />} />
       </Routes>
     </BrowserRouter>
   );
