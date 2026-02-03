@@ -1,1 +1,34 @@
 @import "tailwindcss";
+
+@theme {
+    /* 1. Create the utility class.
+     The variable name '--animate-wave' creates the class 'animate-wave'.
+     The value is the standard CSS animation shorthand.
+  */
+    --animate-wave: wave 4s linear infinite;
+
+    /* Optional: If you want a specific fade-in for the loading screen too
+  */
+    --animate-fade-in: fade-in 0.5s ease-out forwards;
+}
+
+/* 2. Define the standard CSS Keyframes.
+   You do this outside the @theme block, just like normal CSS.
+*/
+@keyframes wave {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
