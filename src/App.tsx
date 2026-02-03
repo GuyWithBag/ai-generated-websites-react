@@ -8,6 +8,7 @@ import FidgetStore from "./pages/FidgetStore";
 import CanvasAndRain from "./pages/CanvasAndRain";
 import Aureus from "./pages/Aureus";
 import TimerApp from "./pages/TimerApp";
+import Onyx from "./pages/Onyx";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/can-rain" element={<CanvasAndRain />} />
         <Route path="/aureus" element={<Aureus />} />
         <Route path="/timer" element={<TimerApp />} />
+        <Route path="/onyx" element={<Onyx />} />
       </Routes>
     </BrowserRouter>
   );
