@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { ShoppingBag, Menu, ArrowRight, Check } from "lucide-react";
+import NikeAirMax from "../assets/nike-air-max.png";
 
 // --- Theme & Constants ---
 const THEME = {
@@ -182,9 +183,9 @@ const HomeScreen: React.FC = () => {
           {/* Floating Sneaker Image */}
           {/* Using a placeholder that resembles the Off-White style */}
           <img
-            src="https://images.unsplash.com/photo-1605348532760-6753d5c43329?auto=format&fit=crop&q=80&w=600"
+            src={NikeAirMax}
             alt="Off-White Sneaker"
-            className="relative z-10 w-[80%] object-contain -rotate-[15deg] drop-shadow-[0_30px_30px_rgba(0,0,0,0.9)] filter saturate-[0.8] contrast-[1.1]"
+            className="relative z-10 w-[90%] -bottom-8 object-contain -rotate-[15deg] drop-shadow-[0_30px_30px_rgba(0,0,0,0.9)] filter saturate-[0.8] contrast-[1.1]"
           />
 
           {/* Live Drop Timer Overlay */}

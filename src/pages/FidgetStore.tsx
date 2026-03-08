@@ -12,6 +12,8 @@ import {
   Zap,
 } from "lucide-react";
 
+import Dec from "../assets/dec.webp";
+
 // --- Types ---
 interface Product {
   id: number;
@@ -21,6 +23,7 @@ interface Product {
   rating: number;
   imageColor: string;
   badge?: string;
+  imgSrc: string;
 }
 
 // --- Mock Data ---
@@ -31,8 +34,10 @@ const products: Product[] = [
     price: 12.99,
     category: "Cubes",
     rating: 5,
-    imageColor: "bg-blue-200",
+    imageColor: "bg-white",
     badge: "Best Seller",
+    imgSrc:
+      "https://www.autismresources.co.za/cdn/shop/products/pastel3.png?v=1757509566&width=1445",
   },
   {
     id: 2,
@@ -40,7 +45,9 @@ const products: Product[] = [
     price: 14.5,
     category: "Cubes",
     rating: 4,
-    imageColor: "bg-teal-200",
+    imageColor: "bg-white",
+    imgSrc:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR87mKehB-1Fc8Ogk90D6-KQUg8zXbfX34Idw&s",
   },
   {
     id: 3,
@@ -48,7 +55,9 @@ const products: Product[] = [
     price: 9.99,
     category: "Spinners",
     rating: 5,
-    imageColor: "bg-purple-200",
+    imageColor: "bg-white",
+    imgSrc:
+      "https://fidgetspinner7.myshopify.com/cdn/shop/products/product-image-235936997_530x@2x.jpg?v=1571610002",
   },
   {
     id: 4,
@@ -56,8 +65,9 @@ const products: Product[] = [
     price: 8.5,
     category: "Poppers",
     rating: 4,
-    imageColor: "bg-pink-200",
+    imageColor: "bg-white",
     badge: "New",
+    imgSrc: "https://m.media-amazon.com/images/I/81AGSF9MPvL.jpg",
   },
   {
     id: 5,
@@ -65,7 +75,9 @@ const products: Product[] = [
     price: 4.99,
     category: "Soft",
     rating: 5,
-    imageColor: "bg-yellow-200",
+    imageColor: "bg-white",
+    imgSrc:
+      "https://cdn11.bigcommerce.com/s-15h1lhwmjz/images/stencil/1280x1280/products/4544/48826/Marble-Mesh-Fidget-Five__69332.1771374709.jpg?c=1?imbypass=on",
   },
   {
     id: 6,
@@ -73,7 +85,8 @@ const products: Product[] = [
     price: 18.0,
     category: "Magnetic",
     rating: 4,
-    imageColor: "bg-orange-200",
+    imageColor: "bg-white",
+    imgSrc: "https://i.ebayimg.com/images/g/XtwAAeSwg8VoBFI0/s-l1200.jpg",
   },
   {
     id: 7,
@@ -81,8 +94,10 @@ const products: Product[] = [
     price: 22.0,
     category: "Cubes",
     rating: 5,
-    imageColor: "bg-indigo-200",
+    imageColor: "bg-white",
     badge: "Pro Choice",
+    imgSrc:
+      "https://www.logicagiochi.com/pub/media/catalog/product/cache/26b7d2ec23fc61e57517c592a3fe3173/m/_/m_megaminx_05-product-solved.jpg.webp",
   },
   {
     id: 8,
@@ -90,7 +105,9 @@ const products: Product[] = [
     price: 3.99,
     category: "Soft",
     rating: 5,
-    imageColor: "bg-red-200",
+    imageColor: "bg-white",
+    imgSrc:
+      "https://squishies-usa.com/wp-content/uploads/2020/08/squishy-mochi-chat-4-510x510.jpg",
   },
 ];
 
@@ -323,10 +340,7 @@ const FidgetStore: React.FC = () => {
                   <Heart size={20} />
                 </button>
                 {/* Simulated toy icon */}
-                <Box
-                  size={64}
-                  className="text-white opacity-50 transform group-hover:scale-110 transition duration-500"
-                />
+                <img src={product.imgSrc} />
               </div>
 
               {/* Product Info */}
@@ -395,9 +409,8 @@ const FidgetStore: React.FC = () => {
           </div>
 
           {/* Decorative shapes for Banner */}
-          <div className="hidden md:block absolute right-20 top-1/2 -translate-y-1/2">
-            <div className="w-64 h-64 bg-gradient-to-tr from-purple-500 to-pink-500 rounded-3xl rotate-12 opacity-80 blur-sm"></div>
-            <div className="absolute inset-0 w-64 h-64 bg-white/10 backdrop-blur-md rounded-3xl rotate-6 border border-white/20"></div>
+          <div className="hidden md:block absolute right-16 top-1/2 -translate-y-1/2">
+            <img src={Dec} className="rotate-45 scale-80" />
           </div>
         </div>
       </section>
