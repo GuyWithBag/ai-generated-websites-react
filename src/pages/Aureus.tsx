@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Search,
-  MapPin,
-  Home,
-  Compass,
-  Heart,
-  User,
-  Calendar,
-} from "lucide-react";
+import { MapPin, Home, Compass, Heart, User, Calendar } from "lucide-react";
 
 // --- Type Definitions ---
 interface Hotel {

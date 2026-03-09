@@ -357,9 +357,7 @@ const FidgetStore: React.FC = () => {
                       }
                     />
                   ))}
-                  <span className="text-xs text-slate-400 ml-1">
-                    ({Math.floor(Math.random() * 50) + 10})
-                  </span>
+                  <span className="text-xs text-slate-400 ml-1">({42})</span>
                 </div>
                 <h3 className="text-lg font-bold text-slate-800 mb-1">
                   {product.name}

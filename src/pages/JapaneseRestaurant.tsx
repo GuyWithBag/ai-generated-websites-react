@@ -1,15 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  Menu,
-  X,
-  Phone,
-  ChevronRight,
-  Star,
-  Quote,
-  Utensils,
-  ChefHat,
-  Clock,
-} from "lucide-react";
+import { useState, useEffect } from "react";
+import { Menu, X, Phone, ChevronRight, Star, Quote } from "lucide-react";
 
 const JapaneseRestaurant = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);

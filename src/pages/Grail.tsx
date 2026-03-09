@@ -261,7 +261,7 @@ const SliderToCop: React.FC = () => {
   const [dragWidth, setDragWidth] = useState(0);
   const [success, setSuccess] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
+  const [isDragging, setIsDragging] = useState(false);
   const startX = useRef(0);
 
   // Dimensions (hardcoded based on styling below for simplicity)
@@ -273,7 +273,7 @@ const SliderToCop: React.FC = () => {
   const handleStart = useCallback(
     (clientX: number) => {
       if (success) return;
-      isDragging.current = true;
+      setIsDragging(true);
       startX.current = clientX - dragWidth; // Account for current position
     },
     [dragWidth, success],
@@ -281,7 +281,7 @@ const SliderToCop: React.FC = () => {
 
   const handleMove = useCallback(
     (clientX: number) => {
-      if (!isDragging.current || success || !containerRef.current) return;
+      if (!isDragging || success || !containerRef.current) return;
 
       const containerWidth = containerRef.current.offsetWidth;
       // Max drag distance is container width minus the knob width and padding
@@ -295,17 +295,17 @@ const SliderToCop: React.FC = () => {
 
       // Check for completion (if dragged more than 95% of the way)
       if (newWidth >= maxDrag * 0.95) {
-        isDragging.current = false;
+        setIsDragging(false);
         setDragWidth(maxDrag);
         setSuccess(true);
       }
     },
-    [success, knobSize],
+    [success, knobSize, isDragging],
   );
 
   const handleEnd = useCallback(() => {
     if (success) return;
-    isDragging.current = false;
+    setIsDragging(false);
     // Snap back if not complete
     setDragWidth(0);
   }, [success]);
@@ -317,7 +317,7 @@ const SliderToCop: React.FC = () => {
     const onTouchMove = (e: TouchEvent) => handleMove(e.touches[0].clientX);
     const onTouchEnd = () => handleEnd();
 
-    if (isDragging.current) {
+    if (isDragging) {
       window.addEventListener("mousemove", onMouseMove);
       window.addEventListener("mouseup", onMouseUp);
       window.addEventListener("touchmove", onTouchMove);
@@ -329,7 +329,7 @@ const SliderToCop: React.FC = () => {
       window.removeEventListener("touchmove", onTouchMove);
       window.removeEventListener("touchend", onTouchEnd);
     };
-  }, [handleMove, handleEnd]); // Depend on memoized handlers
+  }, [handleMove, handleEnd, isDragging]); // Depend on memoized handlers and isDragging state
 
   // --- Visual Calculation ---
   // Opacity of the text fades as you drag
@@ -350,13 +350,13 @@ const SliderToCop: React.FC = () => {
 
       {/* 2. Progress Fill Layer (Grows behind knob) */}
       <div
-        className={`absolute left-[4px] top-[4px] bottom-[4px] rounded-[28px] ${THEME.accent} transition-all ${isDragging.current ? "duration-0" : "duration-300 ease-out"}`}
+        className={`absolute left-[4px] top-[4px] bottom-[4px] rounded-[28px] ${THEME.accent} transition-all ${isDragging ? "duration-0" : "duration-300 ease-out"}`}
         style={{ width: `${dragWidth + knobSize}px` }}
       ></div>
 
       {/* 3. Draggable Knob */}
       <div
-        className={`relative z-10 h-[56px] w-[56px] rounded-full ${THEME.accent} flex items-center justify-center cursor-grab active:cursor-grabbing transition-transform ${isDragging.current ? "duration-0" : "duration-300 ease-out"}`}
+        className={`relative z-10 h-[56px] w-[56px] rounded-full ${THEME.accent} flex items-center justify-center cursor-grab active:cursor-grabbing transition-transform ${isDragging ? "duration-0" : "duration-300 ease-out"}`}
         style={{ transform: `translateX(${dragWidth}px)` }}
         onMouseDown={(e) => handleStart(e.clientX)}
         onTouchStart={(e) => handleStart(e.touches[0].clientX)}

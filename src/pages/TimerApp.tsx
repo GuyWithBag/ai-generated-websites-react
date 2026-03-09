@@ -161,13 +161,13 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, setActiveTab }) => {
 
   // Timer Logic
   useEffect(() => {
-    let interval: NodeJS.Timeout | null = null;
+    let interval: ReturnType<typeof setInterval> | null = null;
     if (isActive && timeLeft > 0) {
       interval = setInterval(() => {
         setTimeLeft((prev) => prev - 1);
       }, 1000);
     } else if (timeLeft === 0 && isActive) {
-      setIsActive(false);
+      setTimeout(() => setIsActive(false), 0);
     }
     return () => {
       if (interval) clearInterval(interval);
@@ -193,14 +193,16 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, setActiveTab }) => {
 
   // --- Interaction Logic ---
   const handleDialInteraction = useCallback(
-    (e: React.MouseEvent | React.TouchEvent) => {
+    (e: React.MouseEvent | React.TouchEvent | MouseEvent | TouchEvent) => {
       if (!dialRef.current) return;
 
       const dialRect = dialRef.current.getBoundingClientRect();
       const centerX = dialRect.left + dialRect.width / 2;
       const centerY = dialRect.top + dialRect.height / 2;
-      const clientX = "touches" in e ? e.touches[0].clientX : e.clientX;
-      const clientY = "touches" in e ? e.touches[0].clientY : e.clientY;
+      const clientX =
+        "touches" in e ? e.touches[0].clientX : (e as MouseEvent).clientX;
+      const clientY =
+        "touches" in e ? e.touches[0].clientY : (e as MouseEvent).clientY;
 
       const deltaX = clientX - centerX;
       const deltaY = clientY - centerY;
@@ -226,7 +228,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({ activeTab, setActiveTab }) => {
   // Global Drag Listeners
   useEffect(() => {
     const handleMove = (e: MouseEvent | TouchEvent) => {
-      if (isDragging) handleDialInteraction(e as any);
+      if (isDragging) handleDialInteraction(e);
     };
     const handleUp = () => setIsDragging(false);
 

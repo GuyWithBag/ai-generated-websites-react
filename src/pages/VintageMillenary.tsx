@@ -6,7 +6,6 @@ import {
   Youtube,
   Twitter,
   ChevronLeft,
-  ChevronRight,
   ArrowRight,
   MapPin,
   Phone,
